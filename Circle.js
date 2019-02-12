@@ -27,3 +27,6 @@ function Circle(){
 	this.setCircleType(1);
 }
 Circle.prototype = new createjs.Shape();
+Circle.TYPE_UNSELECTED = 1;
+Circle.TYPE_SELECTED = 2;
+Circle.TYPE_CAT = 3;

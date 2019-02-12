@@ -27,8 +27,8 @@ let circleArr = [
 let currcat;
 
 function circleEvent(event) {
-    if (event.target.getCircleType() != 3) {
-        event.target.setCircleType(2)
+    if (event.target.getCircleType() != Circle.TYPE_CAT) {
+        event.target.setCircleType(Circle.TYPE_SELECTED)
     }
     if (currcat.indexX == 0 || currcat.indexY == 0 || currcat.indexX == 8 || currcat.indexY == 8) {
         alert('游戏结束')

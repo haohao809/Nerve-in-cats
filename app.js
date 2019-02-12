@@ -25,26 +25,17 @@ let circleArr = [
     []
 ];
 let currcat;
-
+const MOVE_NONE = -1, MOVE_LEFT = 0, MOVE_UP_LEFT = 1,MOVE_UP_RIGHT=2, MOVE_RIGHT = 3,MOVE_DOWN_RIGHT = 4,MOVE_DOWN_LEFT =5;
 function circleEvent(event) {
     if (event.target.getCircleType() != Circle.TYPE_CAT) {
         event.target.setCircleType(Circle.TYPE_SELECTED)
+        return
     }
     if (currcat.indexX == 0 || currcat.indexY == 0 || currcat.indexX == 8 || currcat.indexY == 8) {
-        alert('游戏结束')
+        alert('游戏结束');
+        return;
     }
-    let leftCircle = circleArr[currcat.indexX - 1][currcat.indexY];
-    let rightCircle = circleArr[currcat.indexX + 1][currcat.indexY];
-    if (leftCircle.getCircleType() == 1) {
-        leftCircle.setCircleType(3);
-        currcat.setCircleType(1);
-        currcat = leftCircle;
-    }
-    if (rightCircle.getCircleType() == 1) {
-        rightCircle.setCircleType(3);
-        currcat.setCircleType(1);
-        currcat = rightCircle;
-    }
+
 }
 
 function addCircles() {

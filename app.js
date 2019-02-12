@@ -26,6 +26,116 @@ let circleArr = [
 ];
 let currcat;
 const MOVE_NONE = -1, MOVE_LEFT = 0, MOVE_UP_LEFT = 1,MOVE_UP_RIGHT=2, MOVE_RIGHT = 3,MOVE_DOWN_RIGHT = 4,MOVE_DOWN_LEFT =5;
+
+function getMoveDir(cat){
+	let distanceMap = [];
+	//向左移动
+	let move = true;
+	for(let x = cat.indexX;x>0;x--){
+		if(circleArr[x][cat.indexY].getCircleType == Circle.TYPE_SELECTED){
+			can = false;
+			distanceMap[MOVE_LEFT] = cat.indexX - x;
+			break
+		}
+	}
+	if(move){
+		return MOVE_LEFT;
+	}
+	//左上移动
+	move = true;
+	let x = cat.indexX, y=cat.indexY;
+	while(true){
+		if(circleArr[x][y].getCircleType() == Circle.TYPE_SELECTED){
+			can = false;
+			distanceMap[MOVE_UP_LEFT] = cat.indexY - y;
+			break;
+		}
+		if(y%2 == 0){
+			x--;
+		}
+		y--;
+		if(x<0|| y< 0){
+			break;
+		}
+	}
+	if(move){
+		return MOVE_UP_LEFT;
+	}
+	//右上
+	move = true;
+	x = cat.indexX, y=cat.indexY;
+	while(true){
+		if(circleArr[x][y].getCircleType() == Circle.TYPE_SELECTED){
+			can = false;
+			distanceMap[MOVE_UP_RIGHT] = cat.indexY - y;
+			break;
+		}
+		if(y%2 == 0){
+			x--;
+		}
+		y--;
+		if( x>8|| y< 0){
+			break;
+		}
+	}
+	if(move){
+		return MOVE_UP_RIGHT;
+	}
+	//向右移动
+	let move = true;
+	for(let x = cat.indexX;x<9;x++){
+		if(circleArr[x][cat.indexY].getCircleType == Circle.TYPE_SELECTED){
+			can = false;
+			distanceMap[MOVE_RIGHT] = x - cat.indexX;
+			break
+		}
+	}
+	if(move){
+		return MOVE_RIGHT;
+	}
+	//右下
+	move = true;
+	x = cat.indexX, y=cat.indexY;
+	while(true){
+		if(circleArr[x][y].getCircleType() == Circle.TYPE_SELECTED){
+			can = false;
+			distanceMap[MOVE_DOWN_RIGHT] = y - cat.indexY;
+			break;
+		}
+		if(y%2 == 0){
+			x++;
+		}
+		y++;
+		if( x>8|| y > 8){
+			break;
+		}
+	}
+	if(move){
+		return MOVE_DOWN_RIGHT;
+	}
+	//左下
+	move = true;
+	x = cat.indexX, y=cat.indexY;
+	while(true){
+		if(circleArr[x][y].getCircleType() == Circle.TYPE_SELECTED){
+			can = false;
+			distanceMap[MOVE_DOWN_LEFT] = y - cat.indexY;
+			break;
+		}
+		if(y%2 == 0){
+			x--;
+		}
+		y++;
+		if( x<0|| y > 8){
+			break;
+		}
+	}
+	if(move){
+		return MOVE_DOWN_LEFT;
+	}		
+}
+
+
 function circleEvent(event) {
     if (event.target.getCircleType() != Circle.TYPE_CAT) {
         event.target.setCircleType(Circle.TYPE_SELECTED)

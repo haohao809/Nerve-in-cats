@@ -161,7 +161,7 @@ function circleEvent(event) {
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
             currcat = circleArr[currcat.indexX - 1][currcat.indexY];
             currcat.setCircleType(Circle.TYPE_CAT);
-            // gameView.addChild(bitmap);
+            gameView.removeChild(bitmap);
             // bitmap.x = (currcat.indexX - 1) * 25;
             // console.log('MOVE_LEFT', currcat.indexX);
             // console.log('MOVE_LEFT', currcat.indexY);

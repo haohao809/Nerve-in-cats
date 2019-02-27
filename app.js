@@ -1,8 +1,9 @@
 let stage = new createjs.Stage("gameView");
 let gameView = new createjs.Container();
-gameView.x = 30;
-gameView.y = 30;
+gameView.x = 48;
+gameView.y = 48;
 stage.addChild(gameView);
+var bitmap = new createjs.Bitmap("../Nerve-in-cats/image/cat.gif");
 
 // let s = new createjs.Shape();
 // s.graphics.beginFill("#FF0000");
@@ -38,8 +39,8 @@ function getMoveDir(cat) {
     //向左移动
     let move = true;
     for (let x = cat.indexX; x >= 0; x--) {
-        if (circleArr[x][cat.indexY].getCircleType == Circle.TYPE_SELECTED) {
-            can = false;
+        if (circleArr[x][cat.indexY].getCircleType() == Circle.TYPE_SELECTED) {
+            move = false;
             distanceMap[MOVE_LEFT] = cat.indexX - x;
             break
         }
@@ -53,7 +54,7 @@ function getMoveDir(cat) {
         y = cat.indexY;
     while (true) {
         if (circleArr[x][y].getCircleType() == Circle.TYPE_SELECTED) {
-            can = false;
+            move = false;
             distanceMap[MOVE_UP_LEFT] = cat.indexY - y;
             break;
         }
@@ -73,7 +74,7 @@ function getMoveDir(cat) {
     x = cat.indexX, y = cat.indexY;
     while (true) {
         if (circleArr[x][y].getCircleType() == Circle.TYPE_SELECTED) {
-            can = false;
+            move = false;
             distanceMap[MOVE_UP_RIGHT] = cat.indexY - y;
             break;
         }
@@ -91,8 +92,8 @@ function getMoveDir(cat) {
     //向右移动
     move = true;
     for (let x = cat.indexX; x < 9; x++) {
-        if (circleArr[x][cat.indexY].getCircleType == Circle.TYPE_SELECTED) {
-            can = false;
+        if (circleArr[x][cat.indexY].getCircleType() == Circle.TYPE_SELECTED) {
+            move = false;
             distanceMap[MOVE_RIGHT] = x - cat.indexX;
             break
         }
@@ -105,7 +106,7 @@ function getMoveDir(cat) {
     x = cat.indexX, y = cat.indexY;
     while (true) {
         if (circleArr[x][y].getCircleType() == Circle.TYPE_SELECTED) {
-            can = false;
+            move = false;
             distanceMap[MOVE_DOWN_RIGHT] = y - cat.indexY;
             break;
         }
@@ -125,7 +126,7 @@ function getMoveDir(cat) {
     x = cat.indexX, y = cat.indexY;
     while (true) {
         if (circleArr[x][y].getCircleType() == Circle.TYPE_SELECTED) {
-            can = false;
+            move = false;
             distanceMap[MOVE_DOWN_LEFT] = y - cat.indexY;
             break;
         }
@@ -146,9 +147,9 @@ function getMoveDir(cat) {
 function circleEvent(event) {
     if (event.target.getCircleType() != Circle.TYPE_CAT) {
         event.target.setCircleType(Circle.TYPE_SELECTED)
-        
-    }else{
-    	return;
+
+    } else {
+        return;
     }
     if (currcat.indexX == 0 || currcat.indexY == 0 || currcat.indexX == 8 || currcat.indexY == 8) {
         alert('游戏结束');
@@ -158,36 +159,52 @@ function circleEvent(event) {
     switch (dir) {
         case MOVE_LEFT:
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
-            currcat = circleArr[currcat.indexX - 1][currcat.indexX];
+            currcat = circleArr[currcat.indexX - 1][currcat.indexY];
             currcat.setCircleType(Circle.TYPE_CAT);
+            // gameView.addChild(bitmap);
+            // bitmap.x = (currcat.indexX - 1) * 25;
+            // console.log('MOVE_LEFT', currcat.indexX);
+            // console.log('MOVE_LEFT', currcat.indexY);
             break;
         case MOVE_UP_LEFT:
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
             currcat = circleArr[currcat.indexY % 2 ? currcat.indexX : currcat.indexX - 1][currcat.indexY - 1];
             currcat.setCircleType(Circle.TYPE_CAT);
+            // gameView.addChild(bitmap);
+            // bitmap.x = (currcat.indexY % 2 ? currcat.indexX : currcat.indexX - 1) * 25;
+            // bitmap.y = (currcat.indexY - 1) * 25;
+            // console.log('MOVE_UP_LEFT', currcat.indexX);
+            // console.log('MOVE_UP_LEFT', currcat.indexY);
             break;
         case MOVE_UP_RIGHT:
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
             currcat = circleArr[currcat.indexY % 2 ? currcat.indexX + 1 : currcat.indexX][currcat.indexY - 1];
             currcat.setCircleType(Circle.TYPE_CAT);
+            // gameView.addChild(bitmap);
+            // bitmap.x = (currcat.indexY % 2 ? currcat.indexX + 1 : currcat.indexX) * 25;
+            // bitmap.y = (currcat.indexY - 1) * 25;
+
             break;
         case MOVE_RIGHT:
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
-            currcat = circleArr[currcat.indexX + 1][currcat.indexX];
+            currcat = circleArr[currcat.indexX + 1][currcat.indexY];
             currcat.setCircleType(Circle.TYPE_CAT);
+            // gameView.addChild(bitmap);
             break;
         case MOVE_DOWN_RIGHT:
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
             currcat = circleArr[currcat.indexY % 2 ? currcat.indexX + 1 : currcat.indexX][currcat.indexY + 1];
             currcat.setCircleType(Circle.TYPE_CAT);
+            // gameView.addChild(bitmap);
             break;
         case MOVE_DOWN_LEFT:
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
-            currcat = circleArr[currcat.indexY % 2 ? currcat.indexX  : currcat.indexX -1][currcat.indexY + 1];
+            currcat = circleArr[currcat.indexY % 2 ? currcat.indexX : currcat.indexX - 1][currcat.indexY + 1];
             currcat.setCircleType(Circle.TYPE_CAT);
+            // gameView.addChild(bitmap);
             break;
         default:
-        	alert("游戏结束了");
+            alert("游戏结束了");
     }
 
 }
@@ -200,12 +217,15 @@ function addCircles() {
             circleArr[indexX][indexY] = c;
             c.indexX = indexX;
             c.indexY = indexY;
-            c.x = indexY % 2 ? indexX * 55 + 25 : indexX * 55;
-            c.y = indexY * 55;
+            c.x = indexY % 2 ? indexX * 102 + 50 : indexX * 102;
+            c.y = indexY * 102;
 
             if (indexX == 4 && indexY == 4) {
                 c.setCircleType(3);
                 currcat = c;
+                bitmap.x = indexX * 50 + 27;
+                bitmap.y = indexY * 50 + 27;
+                gameView.addChild(bitmap);
             }
             c.addEventListener("click", circleEvent);
         }

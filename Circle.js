@@ -10,7 +10,7 @@ function Circle(){
 				this.setColor("#ff6600");
 				break;
 			case Circle.TYPE_CAT:
-				this.setColor("#0000ff");
+				this.setColor("#0000ff");				
 				break;
 		}
 
@@ -18,7 +18,7 @@ function Circle(){
 
 	this.setColor = function (colorString) {
 		this.graphics.beginFill(colorString);
-		this.graphics.drawCircle(0,0,25);
+		this.graphics.drawCircle(0,0,50);
 		this.graphics.endFill();
 	}
 	this.getCircleType = function() {

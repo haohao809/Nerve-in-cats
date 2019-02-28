@@ -5,11 +5,6 @@ gameView.y = 48;
 stage.addChild(gameView);
 var bitmap = new createjs.Bitmap("../Nerve-in-cats/image/cat.gif");
 
-// let s = new createjs.Shape();
-// s.graphics.beginFill("#FF0000");
-// s.graphics.drawCircle(50,50,25);
-// s.graphics.endFill();
-// gameView.addChild(s);
 
 createjs.Ticker.setFPS(30);
 createjs.Ticker.addEventListener("tick", stage)
@@ -141,6 +136,24 @@ function getMoveDir(cat) {
     if (move) {
         return MOVE_DOWN_LEFT;
     }
+    let maxDir = -1;
+    maxValue = -1;
+    console.log('distanceMap', distanceMap);
+    console.log('distanceMap.length',distanceMap.length);
+    for (let dir = 0; dir < distanceMap.length; dir++) {
+        if (distanceMap[dir] > maxValue) {
+            maxValue = distanceMap[dir];
+            maxDir = dir;
+            console.log('maxValue', maxValue);
+        }
+    }
+
+    if (maxValue > 1) {
+        console.log('maxDir',maxDir);
+        return maxDir
+    } else {
+        return MOVE_NONE;
+    }
 }
 
 
@@ -263,10 +276,10 @@ function addCircles() {
                 bitmap.y = indexY * 100 - 100;
                 gameView.addChild(bitmap);
             } else {
-                 if(indexX == Math.floor(Math.random()*10)){
-                     c.setCircleType(2);
-                 }
-                  
+                if (indexX == Math.floor(Math.random() * 10)) {
+                    c.setCircleType(2);
+                }
+
 
             }
             c.addEventListener("click", circleEvent);

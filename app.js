@@ -175,8 +175,8 @@ function circleEvent(event) {
             gameView.removeChild(bitmap);
 
             bitmap.x = bitmap.x - 50;
-  
-            
+
+
 
             bitmap.y = bitmap.y - 100;
             gameView.addChild(bitmap);
@@ -205,7 +205,7 @@ function circleEvent(event) {
             currcat = circleArr[currcat.indexX + 1][currcat.indexY];
             currcat.setCircleType(Circle.TYPE_CAT);
             gameView.removeChild(bitmap);
-             bitmap.x = bitmap.x + 100;
+            bitmap.x = bitmap.x + 100;
             gameView.addChild(bitmap);
             console.log('bitmap.x', bitmap.x);
             console.log('MOVE_RIGHT', currcat.indexX);
@@ -262,6 +262,12 @@ function addCircles() {
                 bitmap.x = indexX * 100 - 60;
                 bitmap.y = indexY * 100 - 100;
                 gameView.addChild(bitmap);
+            } else {
+                 if(indexX == Math.floor(Math.random()*10)){
+                     c.setCircleType(2);
+                 }
+                  
+
             }
             c.addEventListener("click", circleEvent);
         }

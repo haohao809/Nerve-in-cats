@@ -73,8 +73,8 @@ function getMoveDir(cat) {
             distanceMap[MOVE_UP_RIGHT] = cat.indexY - y;
             break;
         }
-        if (y % 2 == 0) {
-            x--;
+        if (y % 2 == 1) {
+            x++;
         }
         y--;
         if (x > 8 || y < 0) {
@@ -105,7 +105,7 @@ function getMoveDir(cat) {
             distanceMap[MOVE_DOWN_RIGHT] = y - cat.indexY;
             break;
         }
-        if (y % 2 == 0) {
+        if (y % 2 == 1) {
             x++;
         }
         y++;
@@ -277,7 +277,7 @@ function addCircles() {
                 gameView.addChild(bitmap);
             } else {
                 if (indexX == Math.floor(Math.random() * 10)) {
-                    c.setCircleType(2);
+                    c.setCircleType(Circle.TYPE_SELECTED);
                 }
 
 

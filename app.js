@@ -159,28 +159,43 @@ function circleEvent(event) {
     switch (dir) {
         case MOVE_LEFT:
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
+            console.log('MOVE_LEFT', currcat.indexX);
             currcat = circleArr[currcat.indexX - 1][currcat.indexY];
             currcat.setCircleType(Circle.TYPE_CAT);
             gameView.removeChild(bitmap);
-            // bitmap.x = (currcat.indexX - 1) * 25;
-            // console.log('MOVE_LEFT', currcat.indexX);
-            // console.log('MOVE_LEFT', currcat.indexY);
+            bitmap.x = bitmap.x - 100;
+            gameView.addChild(bitmap);
+            console.log('MOVE_LEFT', currcat.indexX);
+            console.log('bitmap.x', bitmap.x);
             break;
         case MOVE_UP_LEFT:
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
             currcat = circleArr[currcat.indexY % 2 ? currcat.indexX : currcat.indexX - 1][currcat.indexY - 1];
             currcat.setCircleType(Circle.TYPE_CAT);
-            // gameView.addChild(bitmap);
-            // bitmap.x = (currcat.indexY % 2 ? currcat.indexX : currcat.indexX - 1) * 25;
-            // bitmap.y = (currcat.indexY - 1) * 25;
-            // console.log('MOVE_UP_LEFT', currcat.indexX);
-            // console.log('MOVE_UP_LEFT', currcat.indexY);
+            gameView.removeChild(bitmap);
+
+            bitmap.x = bitmap.x - 50;
+  
+            
+
+            bitmap.y = bitmap.y - 100;
+            gameView.addChild(bitmap);
+            console.log('MOVE_UP_LEFT', currcat.indexX);
+            console.log('MOVE_UP_LEFT', currcat.indexY);
+            console.log('bitmap.x', bitmap.x);
             break;
         case MOVE_UP_RIGHT:
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
             currcat = circleArr[currcat.indexY % 2 ? currcat.indexX + 1 : currcat.indexX][currcat.indexY - 1];
             currcat.setCircleType(Circle.TYPE_CAT);
-            // gameView.addChild(bitmap);
+            gameView.removeChild(bitmap);
+
+            bitmap.x = bitmap.x + 50
+
+            bitmap.y = bitmap.y - 100;
+            gameView.addChild(bitmap);
+            console.log('MOVE_UP_RIGHT', currcat.indexX);
+            console.log('MOVE_UP_RIGHT', currcat.indexY);
             // bitmap.x = (currcat.indexY % 2 ? currcat.indexX + 1 : currcat.indexX) * 25;
             // bitmap.y = (currcat.indexY - 1) * 25;
 
@@ -189,19 +204,40 @@ function circleEvent(event) {
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
             currcat = circleArr[currcat.indexX + 1][currcat.indexY];
             currcat.setCircleType(Circle.TYPE_CAT);
+            gameView.removeChild(bitmap);
+             bitmap.x = bitmap.x + 100;
+            gameView.addChild(bitmap);
+            console.log('bitmap.x', bitmap.x);
+            console.log('MOVE_RIGHT', currcat.indexX);
+
             // gameView.addChild(bitmap);
             break;
         case MOVE_DOWN_RIGHT:
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
             currcat = circleArr[currcat.indexY % 2 ? currcat.indexX + 1 : currcat.indexX][currcat.indexY + 1];
             currcat.setCircleType(Circle.TYPE_CAT);
-            // gameView.addChild(bitmap);
+            console.log('MOVE_DOWN_RIGHT', currcat.indexX);
+            console.log('MOVE_DOWN_RIGHT', currcat.indexY);
+            gameView.removeChild(bitmap);
+
+            bitmap.x = bitmap.x + 50;
+
+            bitmap.y = bitmap.y + 100;
+            gameView.addChild(bitmap);
             break;
         case MOVE_DOWN_LEFT:
             currcat.setCircleType(Circle.TYPE_UNSELECTED);
             currcat = circleArr[currcat.indexY % 2 ? currcat.indexX : currcat.indexX - 1][currcat.indexY + 1];
             currcat.setCircleType(Circle.TYPE_CAT);
-            // gameView.addChild(bitmap);
+            gameView.removeChild(bitmap);
+            console.log('MOVE_DOWN_LEFT', currcat.indexX);
+            console.log('MOVE_DOWN_LEFT', currcat.indexY);
+
+
+            bitmap.x = bitmap.x - 50;
+
+            bitmap.y = bitmap.y + 100;
+            gameView.addChild(bitmap);
             break;
         default:
             alert("游戏结束了");
@@ -223,8 +259,8 @@ function addCircles() {
             if (indexX == 4 && indexY == 4) {
                 c.setCircleType(3);
                 currcat = c;
-                bitmap.x = indexX * 50 + 27;
-                bitmap.y = indexY * 50 + 27;
+                bitmap.x = indexX * 100 - 60;
+                bitmap.y = indexY * 100 - 100;
                 gameView.addChild(bitmap);
             }
             c.addEventListener("click", circleEvent);

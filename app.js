@@ -1,12 +1,29 @@
 let stage = new createjs.Stage("gameView");
 let gameView = new createjs.Container();
 gameView.x = 48;
-gameView.y = 48;
+gameView.y = 100;
 stage.addChild(gameView);
-var bitmap = new createjs.Bitmap("../Nerve-in-cats/image/cat.gif");
+
+var data = {
+    images: ["image/cat.png"],
+    frames: { width: 150, height: 150, count: 8 },
+    animations: {
+        run: {
+            frames: [0, 1, 2, 3, 4, 5, 6, 7],
+            speed: 1
+        }
 
 
-createjs.Ticker.setFPS(30);
+    }
+
+}
+var spriteSheet = new createjs.SpriteSheet(data);
+var bitmap = new createjs.Sprite(spriteSheet, "run");
+console.log('sprite', bitmap);
+// var bitmap = new createjs.Bitmap("../Nerve-in-cats/image/cat.gif");
+
+
+createjs.Ticker.setFPS(8);
 createjs.Ticker.addEventListener("tick", stage)
 
 let circleArr = [
@@ -139,17 +156,17 @@ function getMoveDir(cat) {
     let maxDir = -1;
     maxValue = -1;
     console.log('distanceMap', distanceMap);
-    console.log('distanceMap.length',distanceMap.length);
+    console.log('distanceMap.length', distanceMap.length);
     for (let dir = 0; dir < distanceMap.length; dir++) {
         if (distanceMap[dir] > maxValue) {
             maxValue = distanceMap[dir];
             maxDir = dir;
-            console.log('maxValue', maxValue);
+            // console.log('maxValue', maxValue);
         }
     }
 
     if (maxValue > 1) {
-        console.log('maxDir',maxDir);
+        console.log('maxValue', maxValue);
         return maxDir
     } else {
         return MOVE_NONE;
@@ -255,7 +272,6 @@ function circleEvent(event) {
         default:
             alert("游戏结束了");
     }
-
 }
 
 function addCircles() {
